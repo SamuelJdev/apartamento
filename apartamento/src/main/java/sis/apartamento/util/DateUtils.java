@@ -5,6 +5,9 @@ import java.util.Date;
 
 public class DateUtils {
 
+    public DateUtils(){
+    }
+
     public static Date calculaDataMaisUmMes(Date data) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(data);
