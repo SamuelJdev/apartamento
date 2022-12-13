@@ -1,0 +1,18 @@
+{
+  "id": 3,
+  "valorLocacao": 270,
+  "valorPago": 270,
+  "dataEntrada": "01/12/2022",
+  "dataSaida": "31/12/2022",
+  "statusLocacao": "ABERTO",
+  "isFechar": false,
+  "usuario": {
+    "id": 1
+  },
+  "inquilino": {
+    "id": 3
+  },
+  "apto": {
+    "id": 4
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "valorLocacao": 270,
+  "valorPago": 270,
+  "statusLocacao": "ABERTO",
+  "isFechar": false,
+  "usuario": {
+    "id": 1
+  },
+  "inquilino": {
+    "id": 4
+  },
+  "apto": {
+    "id": 6
+  }
+}

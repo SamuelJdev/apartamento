@@ -17,8 +17,6 @@ import java.time.LocalDate;
 @Table(name = "contra_cheque")
 public class ContraCheque implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +30,7 @@ public class ContraCheque implements Serializable {
     @ApiModelProperty(value = "Data Contra Cheque", example = "2020-10-10", required = true)
     private LocalDate dataContraCheque;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "inquilino_id")
+    @ManyToOne
+    @JoinColumn(name = "inquilino_id")
     private Inquilino inquilino;
 }

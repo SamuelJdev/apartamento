@@ -10,9 +10,12 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
+@Entity   /* para dizer que a classe Usuario é uma entidade*/
 @Table(name = "usuario")
 public class Usuario {
+
+    /* Classe seguindo o padrão javaBeans, contendo todos os atributos privados, getters e setters para seus atributos,
+     Usada para encapsular e abstrair uma entidade, Implementa java.io.Serializable */
 
     @Id
     @EqualsAndHashCode.Include

@@ -1,0 +1,8 @@
+{
+  "id": 2,
+  "numeroApto": "2",
+  "statusApartamento": "OCUPADO",
+  "predio": {
+    "id": 1
+  }
+}
