@@ -6,6 +6,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sis.apartamento.exception.EntidadeNaoEncontradaException;
+import sis.apartamento.exception.NegocioException;
 import sis.apartamento.model.Predio;
 import sis.apartamento.resource.dto.PredioRequestPostDTO;
 import sis.apartamento.resource.dto.PredioRequestPutDTO;
@@ -21,40 +23,40 @@ public class PredioResource {
     private PredioService predioService;
 
     @GetMapping
-    public @ResponseBody List<Predio> listar (){
+    public List<Predio> listar() {
         return predioService.listarTodos();
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PredioResponseDTO> buscarPorId(@PathVariable("id") Long id){
+    public PredioResponseDTO buscarPorId(@PathVariable("id") Long id) {
         ModelMapper modelMapper = new ModelMapper();
         Predio predio = predioService.buscarPorId(id);
-        return ResponseEntity.ok(modelMapper.map(predio, PredioResponseDTO.class));
+        return modelMapper.map(predio, PredioResponseDTO.class);
     }
 
     @PostMapping
-    public ResponseEntity<PredioResponseDTO> inserir (@RequestBody PredioRequestPostDTO predioRequestPostDTO){
+    public PredioResponseDTO inserir(@RequestBody PredioRequestPostDTO predioRequestPostDTO) {
         ModelMapper modelMapper = new ModelMapper();
-        var predio = modelMapper.map(predioRequestPostDTO, Predio.class);
         try {
-            predio = predioService.inserir(predio);
-        }catch (DataIntegrityViolationException e){
-            ResponseEntity.badRequest().build();
+            var predio = predioService.inserir(modelMapper.map(predioRequestPostDTO, Predio.class));
+            return modelMapper.map(predio, PredioResponseDTO.class);
+        } catch (DataIntegrityViolationException e) {
+            throw new NegocioException(e.getMessage());
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
         }
-        return new ResponseEntity<>(modelMapper.map(predio, PredioResponseDTO.class), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<PredioResponseDTO> atualizar (@PathVariable("id") Long id, @RequestBody PredioRequestPutDTO predioRequestPut){
+    public PredioResponseDTO atualizar(@PathVariable("id") Long id, @RequestBody PredioRequestPutDTO predioRequestPut) {
         ModelMapper modelMapper = new ModelMapper();
-
         Predio predio = predioService.editar(modelMapper.map(predioRequestPut, Predio.class), id);
-        return ResponseEntity.ok(modelMapper.map(predio, PredioResponseDTO.class));
+        return modelMapper.map(predio, PredioResponseDTO.class);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deletar (@PathVariable("id") Long id ){
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletar(@PathVariable("id") Long id) {
         predioService.deletar(id);
-        return ResponseEntity.noContent().build();
     }
 }

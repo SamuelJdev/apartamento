@@ -17,11 +17,11 @@ import java.io.IOException;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
-public class InquilinoApplicationTests {
+class InquilinoApplicationTests {
     @LocalServerPort
     private int port;
     @Test
-    public void retornaTodosInquilinoPorId() {
+    void retornaTodosInquilinoPorId() {
         RestAssured.given()
                 .basePath("/inquilinos")
                 .port(port)
@@ -33,7 +33,7 @@ public class InquilinoApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void deveRetornaInquilinos() throws IOException {
+    void deveRetornaInquilinos() throws IOException {
         RestAssured.given()
                 .basePath("/inquilinos")
                 .port(port)
@@ -46,7 +46,7 @@ public class InquilinoApplicationTests {
                 .statusCode(HttpStatus.CREATED.value());
     }
     @Test
-    public void retornaInquilinosAtualizado() throws IOException {
+    void retornaInquilinosAtualizado() throws IOException {
         RestAssured.given()
                 .basePath("/inquilinos/{id}")
                 .pathParam("id", 3) /* Ñ entendi o parametroValue*/
@@ -60,7 +60,7 @@ public class InquilinoApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void retornaInquilinos200_peloCodigo() {
+    void retornaInquilinos200_peloCodigo() {
         RestAssured.given()
                 .basePath("/inquilinos/{id}")
                 .port(port)
@@ -72,7 +72,7 @@ public class InquilinoApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void retornaInquilinos404_InquilinosInexistente() {
+    void retornaInquilinos404_InquilinosInexistente() {
         RestAssured.given()
                 .basePath("/inquilinos/{id}")
                 .port(port)
@@ -84,7 +84,7 @@ public class InquilinoApplicationTests {
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
     @Test
-    public void retornainquilinosDeletada() throws IOException {
+    void retornainquilinosDeletada() throws IOException {
         RestAssured.given()
                 .basePath("/inquilinos/{id}")
                 .pathParam("id", 5)

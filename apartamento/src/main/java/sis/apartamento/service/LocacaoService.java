@@ -24,7 +24,6 @@ public class LocacaoService implements ILocacao {
     private final String DISPONIVEL = "DISPONIVEL";
     private final String FECHADO = "FECHADO";
     private final String OCUPADO = "OCUPADO";
-    private final String APTO_OCUPADO = "Apto Ocupado";
     @Override
     public List<Locacao> listarTodos() {
         return locacaoRepository.findAll();

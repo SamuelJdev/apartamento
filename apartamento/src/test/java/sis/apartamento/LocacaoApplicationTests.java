@@ -16,11 +16,11 @@ import java.io.IOException;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
-public class LocacaoApplicationTests {
+class LocacaoApplicationTests {
     @LocalServerPort
     private int port;
     @Test
-    public void retornaTodosLocacaoPorId() {
+    void retornaTodosLocacaoPorId() {
         RestAssured.given()
                 .basePath("/locacoes")
                 .port(port)
@@ -32,7 +32,7 @@ public class LocacaoApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void deveRetornaLocacao() throws IOException {
+    void deveRetornaLocacao() throws IOException {
         RestAssured.given()
                 .basePath("/locacoes")
                 .port(port)
@@ -45,7 +45,7 @@ public class LocacaoApplicationTests {
                 .statusCode(HttpStatus.CREATED.value());
     }
     @Test
-    public void retornaLocacaoAtualizado() throws IOException {
+    void retornaLocacaoAtualizado() throws IOException {
         RestAssured.given()
                 .basePath("/locacoes/{id}")
                 .pathParam("id", 3) /* Ñ entendi o parametroValue*/
@@ -59,7 +59,7 @@ public class LocacaoApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void retornaLocacao200_peloCodigo() {
+    void retornaLocacao200_peloCodigo() {
         RestAssured.given()
                 .basePath("/locacoes/{id}")
                 .port(port)
@@ -71,7 +71,7 @@ public class LocacaoApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void retornaLocacao404_LocacaoInexistente() {
+    void retornaLocacao404_LocacaoInexistente() {
         RestAssured.given()
                 .basePath("/locacoes/{id}")
                 .port(port)
@@ -83,7 +83,7 @@ public class LocacaoApplicationTests {
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
     @Test
-    public void retornaLocacaoDeletada() throws IOException {
+    void retornaLocacaoDeletada() throws IOException {
         RestAssured.given()
                 .basePath("/locacoes/{id}")
                 .pathParam("id", 50)

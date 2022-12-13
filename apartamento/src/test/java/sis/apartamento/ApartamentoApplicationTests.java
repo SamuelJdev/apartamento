@@ -20,7 +20,7 @@ class ApartamentoApplicationTests {
     @LocalServerPort
     private int port;
     @Test
-    public void retornaTodosAptosPorId() {
+    void retornaTodosAptosPorId() {
         RestAssured.given()
                 .basePath("/aptos")
                 .port(port)
@@ -32,7 +32,7 @@ class ApartamentoApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void deveRetornaAptoSalvo() throws IOException {
+    void deveRetornaAptoSalvo() throws IOException {
         RestAssured.given()
                 .basePath("/aptos")
                 .port(port)
@@ -45,7 +45,7 @@ class ApartamentoApplicationTests {
                 .statusCode(HttpStatus.CREATED.value());
     }
     @Test
-    public void retornaAptoAtualizado() throws IOException {
+    void retornaAptoAtualizado() throws IOException {
         RestAssured.given()
                 .basePath("/aptos/{id}")
                 .pathParam("id", 2) /* Ñ entendi o parametroValue*/
@@ -59,7 +59,7 @@ class ApartamentoApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void retornaAptos200_peloCodigo() {
+    void retornaAptos200_peloCodigo() {
         RestAssured.given()
                 .basePath("/aptos/{id}")
                 .port(port)
@@ -71,7 +71,7 @@ class ApartamentoApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void retornaApto404_AptoInexistente() {
+    void retornaApto404_AptoInexistente() {
         RestAssured.given()
                 .basePath("/aptos/{id}")
                 .port(port)
@@ -83,7 +83,7 @@ class ApartamentoApplicationTests {
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
     @Test
-    public void retornaAptosDeletada() throws IOException {
+    void retornaAptosDeletada() throws IOException {
         RestAssured.given()
                 .basePath("/aptos/{id}")
                 .pathParam("id", 50)

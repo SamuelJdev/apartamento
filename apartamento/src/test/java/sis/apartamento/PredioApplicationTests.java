@@ -16,11 +16,11 @@ import java.io.IOException;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
-public class PredioApplicationTests {
+class PredioApplicationTests {
     @LocalServerPort
     private int port;
     @Test
-    public void retornaTodosPrediosPorId() {
+    void retornaTodosPrediosPorId() {
         RestAssured.given()
                 .basePath("/predios")
                 .port(port)
@@ -32,7 +32,7 @@ public class PredioApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void deveRetornaPredioSalvo() throws IOException {
+    void deveRetornaPredioSalvo() throws IOException {
         RestAssured.given()
                 .basePath("/predios")
                 .port(port)
@@ -45,7 +45,7 @@ public class PredioApplicationTests {
                 .statusCode(HttpStatus.CREATED.value());
     }
     @Test
-    public void retornaPredioAtualizado() throws IOException {
+    void retornaPredioAtualizado() throws IOException {
         RestAssured.given()
                 .basePath("/predios/{id}")
                 .pathParam("id", 2) /* Ñ entendi o parametroValue*/
@@ -59,7 +59,7 @@ public class PredioApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void retornaPredio200_peloCodigo() {
+    void retornaPredio200_peloCodigo() {
         RestAssured.given()
                 .basePath("/predios/{id}")
                 .port(port)
@@ -71,7 +71,7 @@ public class PredioApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void retornaPredio404_PredioInexistente() {
+    void retornaPredio404_PredioInexistente() {
         RestAssured.given()
                 .basePath("/predios/{id}")
                 .port(port)
@@ -83,7 +83,7 @@ public class PredioApplicationTests {
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
     @Test
-    public void retornaPredioDeletada() throws IOException {
+    void retornaPredioDeletada() throws IOException {
         RestAssured.given()
                 .basePath("/predios/{id}")
                 .pathParam("id", 5)

@@ -16,11 +16,11 @@ import java.io.IOException;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
-public class ContraChequeApplicationTests {
+class ContraChequeApplicationTests {
     @LocalServerPort
     private int port;
     @Test
-    public void retornaContraChequePorId() {
+    void retornaContraChequePorId() {
         RestAssured.given()
                 .basePath("/contraCheques")
                 .port(port)
@@ -32,7 +32,7 @@ public class ContraChequeApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void deveRetornaContraCheque() throws IOException {
+    void deveRetornaContraCheque() throws IOException {
         RestAssured.given()
                 .basePath("/contraCheques")
                 .port(port)
@@ -45,7 +45,7 @@ public class ContraChequeApplicationTests {
                 .statusCode(HttpStatus.CREATED.value());
     }
     @Test
-    public void retornaContraChequeAtualizado() throws IOException {
+    void retornaContraChequeAtualizado() throws IOException {
         RestAssured.given()
                 .basePath("/contraCheques/{id}")
                 .pathParam("id", 2) /* Ñ entendi o parametroValue*/
@@ -58,7 +58,7 @@ public class ContraChequeApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void retornaContraCheque200_peloCodigo() {
+    void retornaContraCheque200_peloCodigo() {
         RestAssured.given()
                 .basePath("/contraCheques/{id}")
                 .port(port)
@@ -70,7 +70,7 @@ public class ContraChequeApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void retornaContraCheque404_ContraChequeInexistente() {
+    void retornaContraCheque404_ContraChequeInexistente() {
         RestAssured.given()
                 .basePath("/contraCheques/{id}")
                 .port(port)
@@ -82,7 +82,7 @@ public class ContraChequeApplicationTests {
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
     @Test
-    public void retornaContraChequeDeletada() throws IOException {
+    void retornaContraChequeDeletada() throws IOException {
         RestAssured.given()
                 .basePath("/contraCheques/{id}")
                 .pathParam("id", 10)

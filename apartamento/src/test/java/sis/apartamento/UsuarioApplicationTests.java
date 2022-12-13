@@ -17,11 +17,11 @@ import java.io.IOException;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
-public class UsuarioApplicationTests {
+class UsuarioApplicationTests {
     @LocalServerPort
     private int port;
     @Test
-    public void retornaTodosUsuariosPorId() {
+    void retornaTodosUsuariosPorId() {
         RestAssured.given()
                 .basePath("/usuarios")
                 .port(port)
@@ -33,7 +33,7 @@ public class UsuarioApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void deveRetornaUsuarios() throws IOException {
+    void deveRetornaUsuarios() throws IOException {
         RestAssured.given()
                 .basePath("/usuarios")
                 .port(port)
@@ -46,7 +46,7 @@ public class UsuarioApplicationTests {
                 .statusCode(HttpStatus.CREATED.value());
     }
     @Test
-    public void retornaUsuariosAtualizado() throws IOException {
+    void retornaUsuariosAtualizado() throws IOException {
         RestAssured.given()
                 .basePath("/usuarios/{id}")
                 .pathParam("id", 4) /* Ñ entendi o parametroValue*/
@@ -60,7 +60,7 @@ public class UsuarioApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void retornaUsuarios200_peloCodigo() {
+    void retornaUsuarios200_peloCodigo() {
         RestAssured.given()
                 .basePath("/usuarios/{id}")
                 .port(port)
@@ -72,7 +72,7 @@ public class UsuarioApplicationTests {
                 .statusCode(HttpStatus.OK.value());
     }
     @Test
-    public void retornaUsuarios404_UsuariosInexistente() {
+    void retornaUsuarios404_UsuariosInexistente() {
         RestAssured.given()
                 .basePath("/usuarios/{id}")
                 .port(port)
@@ -84,7 +84,7 @@ public class UsuarioApplicationTests {
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
     @Test
-    public void retornaUsuariosDeletada() throws IOException {
+    void retornaUsuariosDeletada() throws IOException {
         RestAssured.given()
                 .basePath("/usuarios/{id}")
                 .pathParam("id", 5)

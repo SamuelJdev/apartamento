@@ -6,6 +6,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sis.apartamento.exception.EntidadeNaoEncontradaException;
+import sis.apartamento.exception.NegocioException;
 import sis.apartamento.model.Locacao;
 import sis.apartamento.resource.dto.LocacaoRequestPostDTO;
 import sis.apartamento.resource.dto.LocacaoResponseDTO;
@@ -21,42 +23,42 @@ public class LocacaoResource {
     private ILocacao locacaoService;
 
     @GetMapping
-    public @ResponseBody List<Locacao> listar() {
+    public List<Locacao> listar() {
         return locacaoService.listarTodos();
     }
 
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<LocacaoResponseDTO> buscarPorId(@PathVariable("id") Long id) {
+    public LocacaoResponseDTO buscarPorId(@PathVariable("id") Long id) {
         ModelMapper modelMapper = new ModelMapper();
         Locacao locacao = locacaoService.buscarPorId(id);
-        return ResponseEntity.ok(modelMapper.map(locacao, LocacaoResponseDTO.class));
+        return modelMapper.map(locacao, LocacaoResponseDTO.class);
     }
 
     @PostMapping
-    public ResponseEntity<LocacaoResponseDTO> inserir(@RequestBody LocacaoRequestPostDTO locacaoDTO) {
+    public LocacaoResponseDTO inserir(@RequestBody LocacaoRequestPostDTO locacaoDTO) {
         ModelMapper modelMapper = new ModelMapper();
-        var locacao = modelMapper.map(locacaoDTO, Locacao.class);
         try {
-            locacaoService.inserir(locacao);
+            var locacao = locacaoService.inserir(modelMapper.map(locacaoDTO, Locacao.class));
+            return modelMapper.map(locacao, LocacaoResponseDTO.class);
         } catch (DataIntegrityViolationException e) {
-            ResponseEntity.badRequest().build();
+            throw new NegocioException(e.getMessage());
         }
-        return new ResponseEntity<>(modelMapper.map(locacao, LocacaoResponseDTO.class), HttpStatus.CREATED);
+        catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<LocacaoResponseDTO> atualizar(@PathVariable("id") Long id, @RequestBody LocacaoResponsePutDTO locacaoResponsePutDTO) {
+    public LocacaoResponseDTO atualizar(@PathVariable("id") Long id, @RequestBody LocacaoResponsePutDTO locacaoResponsePutDTO) {
         ModelMapper modelMapper = new ModelMapper();
-
         Locacao locacao =  locacaoService.editar(modelMapper.map(locacaoResponsePutDTO, Locacao.class), id);
-
-        return ResponseEntity.ok(modelMapper.map(locacao, LocacaoResponseDTO.class));
+        return modelMapper.map(locacao, LocacaoResponseDTO.class);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletar(@PathVariable("id") Long id) {
         locacaoService.deletar(id);
-        return ResponseEntity.noContent().build();
     }
 }
