@@ -4,19 +4,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import sis.apartamento.exception.EntidadeNaoEncontradaException;
+import sis.apartamento.exception.EntidadeRestricaoDeDadosException;
 import sis.apartamento.exception.NegocioException;
 import sis.apartamento.model.ContraCheque;
-import sis.apartamento.resource.dto.AptoResponseDTO;
 import sis.apartamento.resource.dto.ContraChequePostDTO;
 import sis.apartamento.resource.dto.ContraChequePutDTO;
 import sis.apartamento.resource.dto.ContraChequeResponseDTO;
 import sis.apartamento.service.ContraChequeService;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController  /* o @RestController faz automaticamente tudo o que o @Controller faz é retornar tudo em JSON  */
@@ -44,7 +41,7 @@ public class ContraChequeResource {
         try {
             var contraCheque = contraChequeService.inserir(modelMapper.map(contraChequePostDTO, ContraCheque.class));
             return modelMapper.map(contraCheque, ContraChequeResponseDTO.class);
-        } catch (DataIntegrityViolationException e) {
+        } catch (EntidadeRestricaoDeDadosException e) {
             throw new NegocioException(e.getMessage());
         } catch (EntidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
@@ -54,9 +51,7 @@ public class ContraChequeResource {
     @PutMapping(value = "/{id}")
     public ContraChequeResponseDTO atualizar(@PathVariable("id") Long id, @RequestBody ContraChequePutDTO contraChequePutDTO) {
         ModelMapper modelMapper = new ModelMapper();
-
         ContraCheque contraCheque = contraChequeService.editar(modelMapper.map(contraChequePutDTO, ContraCheque.class), id);
-
         return modelMapper.map(contraCheque, ContraChequeResponseDTO.class);
     }
 

@@ -42,7 +42,7 @@ class PredioApplicationTests {
                 .when()
                 .post()
                 .then()
-                .statusCode(HttpStatus.CREATED.value());
+                .statusCode(HttpStatus.OK.value());
     }
     @Test
     void retornaPredioAtualizado() throws IOException {
@@ -76,11 +76,11 @@ class PredioApplicationTests {
                 .basePath("/predios/{id}")
                 .port(port)
                 .accept(ContentType.JSON)
-                .pathParam("id", 5)
+                .pathParam("id", 6)
                 .when()
                 .get()
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
     @Test
     void retornaPredioDeletada() throws IOException {
@@ -93,6 +93,6 @@ class PredioApplicationTests {
                 .when()
                 .delete()
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                .statusCode(HttpStatus.NO_CONTENT.value());
     }
 }

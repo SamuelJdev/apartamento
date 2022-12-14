@@ -43,7 +43,7 @@ class InquilinoApplicationTests {
                 .when()
                 .post()
                 .then()
-                .statusCode(HttpStatus.CREATED.value());
+                .statusCode(HttpStatus.OK.value());
     }
     @Test
     void retornaInquilinosAtualizado() throws IOException {
@@ -81,7 +81,7 @@ class InquilinoApplicationTests {
                 .when()
                 .get()
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
     @Test
     void retornainquilinosDeletada() throws IOException {
@@ -94,6 +94,6 @@ class InquilinoApplicationTests {
                 .when()
                 .delete()
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                .statusCode(HttpStatus.NO_CONTENT.value());
     }
 }

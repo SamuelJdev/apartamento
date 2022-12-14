@@ -4,9 +4,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sis.apartamento.exception.EntidadeNaoEncontradaException;
+import sis.apartamento.exception.EntidadeRestricaoDeDadosException;
 import sis.apartamento.exception.NegocioException;
 import sis.apartamento.model.Locacao;
 import sis.apartamento.resource.dto.LocacaoRequestPostDTO;
@@ -27,7 +27,6 @@ public class LocacaoResource {
         return locacaoService.listarTodos();
     }
 
-
     @GetMapping(value = "/{id}")
     public LocacaoResponseDTO buscarPorId(@PathVariable("id") Long id) {
         ModelMapper modelMapper = new ModelMapper();
@@ -41,7 +40,7 @@ public class LocacaoResource {
         try {
             var locacao = locacaoService.inserir(modelMapper.map(locacaoDTO, Locacao.class));
             return modelMapper.map(locacao, LocacaoResponseDTO.class);
-        } catch (DataIntegrityViolationException e) {
+        } catch (EntidadeRestricaoDeDadosException e) {
             throw new NegocioException(e.getMessage());
         }
         catch (EntidadeNaoEncontradaException e) {

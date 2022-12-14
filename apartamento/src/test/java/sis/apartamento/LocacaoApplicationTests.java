@@ -42,7 +42,7 @@ class LocacaoApplicationTests {
                 .when()
                 .post()
                 .then()
-                .statusCode(HttpStatus.CREATED.value());
+                .statusCode(HttpStatus.OK.value());
     }
     @Test
     void retornaLocacaoAtualizado() throws IOException {
@@ -80,7 +80,7 @@ class LocacaoApplicationTests {
                 .when()
                 .get()
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
     @Test
     void retornaLocacaoDeletada() throws IOException {
@@ -93,6 +93,6 @@ class LocacaoApplicationTests {
                 .when()
                 .delete()
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                .statusCode(HttpStatus.NO_CONTENT.value());
     }
 }

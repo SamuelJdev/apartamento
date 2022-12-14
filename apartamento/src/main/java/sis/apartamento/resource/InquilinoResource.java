@@ -4,10 +4,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import sis.apartamento.exception.EntidadeNaoEncontradaException;
+import sis.apartamento.exception.EntidadeRestricaoDeDadosException;
 import sis.apartamento.exception.NegocioException;
 import sis.apartamento.model.Inquilino;
 import sis.apartamento.resource.dto.InquilinoRequestPostDTO;
@@ -15,7 +14,6 @@ import sis.apartamento.resource.dto.InquilinoRequestPutDTO;
 import sis.apartamento.resource.dto.InquilinoResponseDTO;
 import sis.apartamento.service.InquilinoService;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -43,7 +41,7 @@ public class InquilinoResource {
         try {
             var inquilino = inquilinoService.inserir(modelMapper.map(inquilinoRequestPostDTO, Inquilino.class));
             return modelMapper.map(inquilino, InquilinoResponseDTO.class);
-        } catch (DataIntegrityViolationException e) {
+        } catch (EntidadeRestricaoDeDadosException e) {
             throw new NegocioException(e.getMessage());
         } catch (EntidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
@@ -53,9 +51,7 @@ public class InquilinoResource {
     @PutMapping(value = "/{id}")
     public InquilinoResponseDTO atualizar(@PathVariable("id") Long id, @RequestBody InquilinoRequestPutDTO inquilinoRequestPutDTO) {
         ModelMapper modelMapper = new ModelMapper();
-
         var inquilino = inquilinoService.editar(modelMapper.map(inquilinoRequestPutDTO, Inquilino.class), id);
-
         return modelMapper.map(inquilino, InquilinoResponseDTO.class);
     }
 

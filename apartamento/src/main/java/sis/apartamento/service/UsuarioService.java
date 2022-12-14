@@ -22,7 +22,8 @@ public class UsuarioService implements IUsuarios {
     }
     @Override
     public Usuario buscarPorId(Long id) {
-        return usuarioRepository.findById(id).orElseThrow(()-> new UsuarioNaoEncontradoException(id));
+        return usuarioRepository.findById(id)
+                .orElseThrow(()-> new UsuarioNaoEncontradoException(id));
     }
     @Override
     public Usuario inserir (Usuario usuario){

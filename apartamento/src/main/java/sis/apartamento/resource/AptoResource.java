@@ -10,6 +10,7 @@ import sis.apartamento.exception.NegocioException;
 import sis.apartamento.model.Apto;
 import sis.apartamento.resource.dto.*;
 import sis.apartamento.service.AptoService;
+
 import java.util.List;
 
 @RestController
@@ -48,8 +49,8 @@ public class AptoResource {
     @PutMapping(value = "/{id}")
     public AptoResponseDTO atualizar(@PathVariable("id") Long id, @RequestBody AptoRequestPutDTO aptoRequestPutDTO) {
         ModelMapper modelMapper = new ModelMapper();
-            Apto apto = aptoService.editar(modelMapper.map(aptoRequestPutDTO, Apto.class), id);
-            return modelMapper.map(apto, AptoResponseDTO.class);
+        Apto apto = aptoService.editar(modelMapper.map(aptoRequestPutDTO, Apto.class), id);
+        return modelMapper.map(apto, AptoResponseDTO.class);
     }
 
     @DeleteMapping(value = "/{id}")

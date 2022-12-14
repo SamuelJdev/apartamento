@@ -20,7 +20,8 @@ public class ContraChequeService implements IContraCheque {
     }
     @Override
     public ContraCheque buscarPorId(Long id) {
-        return contraChequeRepository.findById(id).orElseThrow(()-> new ContraChequeNaoEncontradoException(id));
+        return contraChequeRepository.findById(id)
+                .orElseThrow(()-> new ContraChequeNaoEncontradoException(id));
     }
     @Override
     public ContraCheque inserir (ContraCheque contraCheque){

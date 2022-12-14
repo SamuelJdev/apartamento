@@ -4,9 +4,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sis.apartamento.exception.EntidadeNaoEncontradaException;
+import sis.apartamento.exception.EntidadeRestricaoDeDadosException;
 import sis.apartamento.exception.NegocioException;
 import sis.apartamento.model.Predio;
 import sis.apartamento.resource.dto.PredioRequestPostDTO;
@@ -40,7 +40,7 @@ public class PredioResource {
         try {
             var predio = predioService.inserir(modelMapper.map(predioRequestPostDTO, Predio.class));
             return modelMapper.map(predio, PredioResponseDTO.class);
-        } catch (DataIntegrityViolationException e) {
+        } catch (EntidadeRestricaoDeDadosException e) {
             throw new NegocioException(e.getMessage());
         } catch (EntidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());

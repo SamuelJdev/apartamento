@@ -42,7 +42,7 @@ class ApartamentoApplicationTests {
                 .when()
                 .post()
                 .then()
-                .statusCode(HttpStatus.CREATED.value());
+                .statusCode(HttpStatus.OK.value());
     }
     @Test
     void retornaAptoAtualizado() throws IOException {
@@ -80,19 +80,19 @@ class ApartamentoApplicationTests {
                 .when()
                 .get()
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
     @Test
-    void retornaAptosDeletada() throws IOException {
+    void retornaAptosDeletado() throws IOException {
         RestAssured.given()
                 .basePath("/aptos/{id}")
-                .pathParam("id", 50)
+                .pathParam("id", 15)
                 .port(port)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .when()
                 .delete()
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                .statusCode(HttpStatus.NO_CONTENT.value());
     }
 }

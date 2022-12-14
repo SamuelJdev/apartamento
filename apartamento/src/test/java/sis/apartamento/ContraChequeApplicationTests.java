@@ -42,7 +42,7 @@ class ContraChequeApplicationTests {
                 .when()
                 .post()
                 .then()
-                .statusCode(HttpStatus.CREATED.value());
+                .statusCode(HttpStatus.OK.value());
     }
     @Test
     void retornaContraChequeAtualizado() throws IOException {
@@ -79,7 +79,7 @@ class ContraChequeApplicationTests {
                 .when()
                 .get()
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
     @Test
     void retornaContraChequeDeletada() throws IOException {
@@ -92,6 +92,6 @@ class ContraChequeApplicationTests {
                 .when()
                 .delete()
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
 }

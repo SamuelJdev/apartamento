@@ -43,7 +43,7 @@ class UsuarioApplicationTests {
                 .when()
                 .post()
                 .then()
-                .statusCode(HttpStatus.CREATED.value());
+                .statusCode(HttpStatus.OK.value());
     }
     @Test
     void retornaUsuariosAtualizado() throws IOException {
@@ -81,19 +81,19 @@ class UsuarioApplicationTests {
                 .when()
                 .get()
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
     @Test
     void retornaUsuariosDeletada() throws IOException {
         RestAssured.given()
                 .basePath("/usuarios/{id}")
-                .pathParam("id", 5)
+                .pathParam("id", 9)
                 .port(port)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .when()
                 .delete()
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                .statusCode(HttpStatus.NO_CONTENT.value());
     }
 }

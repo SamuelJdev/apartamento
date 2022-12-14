@@ -19,7 +19,8 @@ public class InquilinoService implements IInquilinos {
     }
     @Override
     public Inquilino buscarPorId(Long id) {
-        return inquilinoRepository.findById(id).orElseThrow(()-> new InquilinoNaoEncontradoException(id));
+        return inquilinoRepository.findById(id)
+                .orElseThrow(()-> new InquilinoNaoEncontradoException(id));
     }
     @Override
     public Inquilino inserir (Inquilino inquilino){

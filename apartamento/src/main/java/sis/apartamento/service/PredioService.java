@@ -19,7 +19,8 @@ public class PredioService implements IPredio {
     }
     @Override
     public Predio buscarPorId(Long id) {
-        return predioRepository.findById(id).orElseThrow(()-> new PredioNaoEncontradoException(id));
+        return predioRepository.findById(id)
+                .orElseThrow(()-> new PredioNaoEncontradoException(id));
     }
     @Override
     public Predio inserir (Predio predio){

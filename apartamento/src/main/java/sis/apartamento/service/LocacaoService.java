@@ -31,7 +31,8 @@ public class LocacaoService implements ILocacao {
 
     @Override
     public Locacao buscarPorId(Long id) {
-        return locacaoRepository.findById(id).orElseThrow(()-> new LocacaoNaoEncontradoException(id));
+        return locacaoRepository.findById(id)
+                .orElseThrow(()-> new LocacaoNaoEncontradoException(id));
     }
 
     @Override
