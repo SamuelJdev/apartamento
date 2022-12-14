@@ -2,15 +2,14 @@ package sis.apartamento.resource;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sis.apartamento.exception.EntidadeNaoEncontradaException;
 import sis.apartamento.exception.EntidadeRestricaoDeDadosException;
 import sis.apartamento.exception.NegocioException;
 import sis.apartamento.model.ContraCheque;
-import sis.apartamento.resource.dto.ContraChequePostDTO;
-import sis.apartamento.resource.dto.ContraChequePutDTO;
+import sis.apartamento.resource.dto.ContraChequeRequestPostDTO;
+import sis.apartamento.resource.dto.ContraChequeResponsePutDTO;
 import sis.apartamento.resource.dto.ContraChequeResponseDTO;
 import sis.apartamento.service.ContraChequeService;
 
@@ -36,7 +35,7 @@ public class ContraChequeResource {
     }
 
     @PostMapping
-    public ContraChequeResponseDTO inserir(@RequestBody ContraChequePostDTO contraChequePostDTO) {
+    public ContraChequeResponseDTO inserir(@RequestBody ContraChequeRequestPostDTO contraChequePostDTO) {
         ModelMapper modelMapper = new ModelMapper();
         try {
             var contraCheque = contraChequeService.inserir(modelMapper.map(contraChequePostDTO, ContraCheque.class));
@@ -49,7 +48,7 @@ public class ContraChequeResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ContraChequeResponseDTO atualizar(@PathVariable("id") Long id, @RequestBody ContraChequePutDTO contraChequePutDTO) {
+    public ContraChequeResponseDTO atualizar(@PathVariable("id") Long id, @RequestBody ContraChequeResponsePutDTO contraChequePutDTO) {
         ModelMapper modelMapper = new ModelMapper();
         ContraCheque contraCheque = contraChequeService.editar(modelMapper.map(contraChequePutDTO, ContraCheque.class), id);
         return modelMapper.map(contraCheque, ContraChequeResponseDTO.class);

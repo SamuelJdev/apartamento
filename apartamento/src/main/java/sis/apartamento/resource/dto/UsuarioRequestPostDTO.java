@@ -10,12 +10,12 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UsuarioRequestPostDTO {
 
-    @ApiModelProperty(value = "nome do Usuario", example = "Monaco", required = true)
+    @ApiModelProperty(value = "nome do Usuario", example = "Monaco")
     private String nome;
 
-    @ApiModelProperty(value = "Sexo do cliente", example = "Masculino ou Feminino", required = true)
+    @ApiModelProperty(value = "Sexo do cliente", example = "Masculino ou Feminino")
     private String sexo;
 
-    @ApiModelProperty(value = "Senha do Cliente", example = "1234", required = true)
+    @ApiModelProperty(value = "Senha do Cliente", example = "1234")
     private String senha;
 }

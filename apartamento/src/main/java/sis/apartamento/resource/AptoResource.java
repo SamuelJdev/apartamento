@@ -47,7 +47,7 @@ public class AptoResource {
     }
 
     @PutMapping(value = "/{id}")
-    public AptoResponseDTO atualizar(@PathVariable("id") Long id, @RequestBody AptoRequestPutDTO aptoRequestPutDTO) {
+    public AptoResponseDTO atualizar(@PathVariable("id") Long id, @RequestBody AptoResponsePutDTO aptoRequestPutDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Apto apto = aptoService.editar(modelMapper.map(aptoRequestPutDTO, Apto.class), id);
         return modelMapper.map(apto, AptoResponseDTO.class);

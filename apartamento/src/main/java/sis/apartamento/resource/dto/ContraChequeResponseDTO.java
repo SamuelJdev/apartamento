@@ -12,10 +12,7 @@ import java.time.LocalDate;
 public class ContraChequeResponseDTO {
 
     private Long id;
-
     private BigDecimal valorContracheque;
-
     private LocalDate dataContraCheque;
-
     private InquilinoIdDTO inquilino;
 }

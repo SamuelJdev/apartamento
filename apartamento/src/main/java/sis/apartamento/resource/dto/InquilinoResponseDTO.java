@@ -9,7 +9,10 @@ import java.math.BigDecimal;
 public class InquilinoResponseDTO {
 
     private Long id;
+
     private String nome;
+
     private String cpf;
+
     private BigDecimal valorContraCheque;
 }

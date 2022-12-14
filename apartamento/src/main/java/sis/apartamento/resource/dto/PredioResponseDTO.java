@@ -8,6 +8,5 @@ import lombok.Setter;
 public class PredioResponseDTO {
 
     private Long id;
-
     private String numeroPredio;
 }

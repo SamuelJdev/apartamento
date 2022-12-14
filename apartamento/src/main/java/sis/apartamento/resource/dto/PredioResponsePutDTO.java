@@ -5,13 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UsuarioRequestPutDTO {
+public class PredioResponsePutDTO {
 
     private Long id;
-
-    private String nome;
-
-    private String sexo;
-
-    private String senha;
+    private String numeroPredio;
 }

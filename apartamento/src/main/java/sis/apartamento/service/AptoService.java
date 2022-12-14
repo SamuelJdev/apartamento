@@ -7,6 +7,7 @@ import sis.apartamento.exception.AptoNaoEncontradoException;
 import sis.apartamento.model.Apto;
 import sis.apartamento.repository.AptoRepository;
 import sis.apartamento.service.interfaces.IApto;
+
 import java.util.List;
 
 @Service
@@ -16,13 +17,14 @@ public class AptoService implements IApto {
     private AptoRepository aptoRepository;
 
     @Override
-    public List<Apto> listarTodos(){
+    public List<Apto> listarTodos() {
         return aptoRepository.findAll();
     }
+
     @Override
     public Apto buscarPorId(Long id){
         return aptoRepository.findById(id)
-                .orElseThrow(()->new AptoNaoEncontradoException(id));
+                .orElseThrow(()-> new AptoNaoEncontradoException(id));
     }
     @Override
     public Apto inserir (Apto apto){
@@ -43,6 +45,7 @@ public class AptoService implements IApto {
     private void verificarExistencia(Long id){
         buscarPorId(id);
     }
+
     @Override
     public void deletar(Long id){
         try {

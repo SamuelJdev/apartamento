@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "apto")
 public class Apto {
     @Id
@@ -19,11 +19,9 @@ public class Apto {
     private Long id;
 
     @NotNull
-    @ApiModelProperty(value = "Numero do Apto", example = "2", required = true)
     private String numeroApto;
 
     @NotNull
-    @ApiModelProperty(value = "Status do Apartamento", example = "Disponivel ou Ocupado", required = true)
     private String statusApartamento = "DISPONIVEL";
 
     @ManyToOne

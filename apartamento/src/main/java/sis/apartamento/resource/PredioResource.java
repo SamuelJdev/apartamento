@@ -2,7 +2,6 @@ package sis.apartamento.resource;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sis.apartamento.exception.EntidadeNaoEncontradaException;
@@ -10,7 +9,7 @@ import sis.apartamento.exception.EntidadeRestricaoDeDadosException;
 import sis.apartamento.exception.NegocioException;
 import sis.apartamento.model.Predio;
 import sis.apartamento.resource.dto.PredioRequestPostDTO;
-import sis.apartamento.resource.dto.PredioRequestPutDTO;
+import sis.apartamento.resource.dto.PredioResponsePutDTO;
 import sis.apartamento.resource.dto.PredioResponseDTO;
 import sis.apartamento.service.PredioService;
 
@@ -48,7 +47,7 @@ public class PredioResource {
     }
 
     @PutMapping(value = "/{id}")
-    public PredioResponseDTO atualizar(@PathVariable("id") Long id, @RequestBody PredioRequestPutDTO predioRequestPut) {
+    public PredioResponseDTO atualizar(@PathVariable("id") Long id, @RequestBody PredioResponsePutDTO predioRequestPut) {
         ModelMapper modelMapper = new ModelMapper();
         Predio predio = predioService.editar(modelMapper.map(predioRequestPut, Predio.class), id);
         return modelMapper.map(predio, PredioResponseDTO.class);

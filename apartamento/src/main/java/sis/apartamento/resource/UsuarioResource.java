@@ -2,7 +2,6 @@ package sis.apartamento.resource;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sis.apartamento.exception.EntidadeNaoEncontradaException;
@@ -10,7 +9,7 @@ import sis.apartamento.exception.EntidadeRestricaoDeDadosException;
 import sis.apartamento.exception.NegocioException;
 import sis.apartamento.model.Usuario;
 import sis.apartamento.resource.dto.UsuarioRequestPostDTO;
-import sis.apartamento.resource.dto.UsuarioRequestPutDTO;
+import sis.apartamento.resource.dto.UsuarioResponsePutDTO;
 import sis.apartamento.resource.dto.UsuarioResponseDTO;
 import sis.apartamento.service.UsuarioService;
 import java.util.List;
@@ -47,7 +46,7 @@ public class UsuarioResource {
     }
 
     @PutMapping(value = "/{id}")
-    public UsuarioResponseDTO atualizar(@PathVariable("id") Long id, @RequestBody UsuarioRequestPutDTO usuarioRequestPutDTO) {
+    public UsuarioResponseDTO atualizar(@PathVariable("id") Long id, @RequestBody UsuarioResponsePutDTO usuarioRequestPutDTO) {
         ModelMapper modelMapper = new ModelMapper();
         Usuario usuario = usuarioService.editar(modelMapper.map(usuarioRequestPutDTO, Usuario.class), id);
         return modelMapper.map(usuario, UsuarioResponseDTO.class);

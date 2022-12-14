@@ -19,6 +19,5 @@ public class Predio {
     private Long id;
 
     @NotNull
-    @ApiModelProperty(value = "Numero do Predio", example = "20", required = true)
     private String numeroPredio;
 }

@@ -23,11 +23,9 @@ public class ContraCheque implements Serializable {
     private Long id;
 
     @NotNull
-    @ApiModelProperty(value = "Valor Contra Cheque", example = "1000", required = true)
     private BigDecimal valorContracheque;
 
     @NotNull
-    @ApiModelProperty(value = "Data Contra Cheque", example = "2020-10-10", required = true)
     private LocalDate dataContraCheque;
 
     @ManyToOne

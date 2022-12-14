@@ -10,7 +10,7 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PredioRequestPostDTO {
 
-    @ApiModelProperty(value = "Nome do predio", example = "1", required = true)
+    @ApiModelProperty(value = "Nome do predio", example = "1")
     private String numeroPredio;
 
 }

@@ -15,18 +15,18 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LocacaoRequestPostDTO {
 
-    @ApiModelProperty(value = "Valor Locacao", example = "270,00", position = 2, required = true)
+    @ApiModelProperty(value = "Valor Locacao", example = "270,00", position = 2)
     private BigDecimal valorLocacao = BigDecimal.ZERO;
 
-    @ApiModelProperty(value = "Valor Locacao", example = "260,00", position = 3, required = true)
+    @ApiModelProperty(value = "Valor Locacao", example = "260,00", position = 3)
     private BigDecimal valorPago = BigDecimal.ZERO;
 
-    @ApiModelProperty(value = "ID do usuário", example = "1", position = 4, required = true)
+    @ApiModelProperty(value = "ID do usuário", example = "1", position = 4)
     private UsuarioIdDTO usuario;
 
-    @ApiModelProperty(value = "ID do inquilino", example = "1", position = 5, required = true)
+    @ApiModelProperty(value = "ID do inquilino", example = "1", position = 5)
     private InquilinoIdDTO inquilino;
 
-    @ApiModelProperty(value = "ID do apartamento", example = "1", position = 6, required = true)
+    @ApiModelProperty(value = "ID do apartamento", example = "1", position = 6)
     private ApartamentoIdDTO apto;
 }

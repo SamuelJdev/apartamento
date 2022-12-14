@@ -5,9 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PredioRequestPutDTO {
+public class UsuarioResponsePutDTO {
 
     private Long id;
-
-    private String numeroPredio;
+    private String nome;
+    private String sexo;
+    private String senha;
 }

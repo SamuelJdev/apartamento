@@ -87,7 +87,7 @@ class UsuarioApplicationTests {
     void retornaUsuariosDeletada() throws IOException {
         RestAssured.given()
                 .basePath("/usuarios/{id}")
-                .pathParam("id", 9)
+                .pathParam("id", 6)
                 .port(port)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)

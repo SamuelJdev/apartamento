@@ -14,24 +14,14 @@ import java.util.Date;
 public class LocacaoResponsePutDTO {
 
     private Long id;
-
     private BigDecimal valorLocacao;
-
     private BigDecimal valorPago = BigDecimal.ZERO;
-
     private BigDecimal valorDebito = BigDecimal.ZERO;
-
     private Date dataEntrada;
-
     private Date dataSaida;
-
     private String statusLocacao;
-
     private Boolean isFechar;
-
     private UsuarioIdDTO usuario;
-
     private InquilinoIdDTO inquilino;
-
     private ApartamentoIdDTO apto;
 }
