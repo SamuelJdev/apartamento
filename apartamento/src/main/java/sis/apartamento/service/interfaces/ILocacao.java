@@ -1,7 +1,6 @@
 package sis.apartamento.service.interfaces;
 
 import sis.apartamento.model.Locacao;
-import sis.apartamento.resource.dto.LocacaoResponseDTO;
 
 import java.util.List;
 

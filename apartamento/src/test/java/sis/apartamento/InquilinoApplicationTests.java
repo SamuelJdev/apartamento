@@ -2,7 +2,6 @@ package sis.apartamento;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,22 +19,11 @@ import java.io.IOException;
 class InquilinoApplicationTests {
     @LocalServerPort
     private int port;
-    @Test
-    void retornaTodosInquilinoPorId() {
-        RestAssured.given()
-                .basePath("/inquilinos")
-                .port(port)
-                .accept(ContentType.JSON)
-                .when()
-                .get()
-                .then()
-                .body("nome", Matchers.hasItems("Josue Souza"))
-                .statusCode(HttpStatus.OK.value());
-    }
+
     @Test
     void deveRetornaInquilinos() throws IOException {
         RestAssured.given()
-                .basePath("/inquilinos")
+                .basePath("/v1/inquilinos")
                 .port(port)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
@@ -48,7 +36,7 @@ class InquilinoApplicationTests {
     @Test
     void retornaInquilinosAtualizado() throws IOException {
         RestAssured.given()
-                .basePath("/inquilinos/{id}")
+                .basePath("/v1/inquilinos/{id}")
                 .pathParam("id", 3) /* Ñ entendi o parametroValue*/
                 .port(port)
                 .contentType(ContentType.JSON)
@@ -62,7 +50,7 @@ class InquilinoApplicationTests {
     @Test
     void retornaInquilinos200_peloCodigo() {
         RestAssured.given()
-                .basePath("/inquilinos/{id}")
+                .basePath("/v1/inquilinos/{id}")
                 .port(port)
                 .accept(ContentType.JSON)
                 .pathParam("id", 3)
@@ -74,7 +62,7 @@ class InquilinoApplicationTests {
     @Test
     void retornaInquilinos404_InquilinosInexistente() {
         RestAssured.given()
-                .basePath("/inquilinos/{id}")
+                .basePath("/v1/inquilinos/{id}")
                 .port(port)
                 .accept(ContentType.JSON)
                 .pathParam("id", 5)
@@ -86,8 +74,8 @@ class InquilinoApplicationTests {
     @Test
     void retornainquilinosDeletada() throws IOException {
         RestAssured.given()
-                .basePath("/inquilinos/{id}")
-                .pathParam("id", 5)
+                .basePath("/v1/inquilinos/{id}")
+                .pathParam("id", 12)
                 .port(port)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)

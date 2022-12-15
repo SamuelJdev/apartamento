@@ -2,7 +2,6 @@ package sis.apartamento;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import sis.apartamento.util.FileUtils;
+
 import java.io.IOException;
 
 @ExtendWith(SpringExtension.class)
@@ -19,22 +19,11 @@ import java.io.IOException;
 class ContraChequeApplicationTests {
     @LocalServerPort
     private int port;
-    @Test
-    void retornaContraChequePorId() {
-        RestAssured.given()
-                .basePath("/contraCheques")
-                .port(port)
-                .accept(ContentType.JSON)
-                .when()
-                .get()
-                .then()
-                .body("id", Matchers.hasItems(1))
-                .statusCode(HttpStatus.OK.value());
-    }
+
     @Test
     void deveRetornaContraCheque() throws IOException {
         RestAssured.given()
-                .basePath("/contraCheques")
+                .basePath("/v1/contraCheques")
                 .port(port)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
@@ -47,7 +36,7 @@ class ContraChequeApplicationTests {
     @Test
     void retornaContraChequeAtualizado() throws IOException {
         RestAssured.given()
-                .basePath("/contraCheques/{id}")
+                .basePath("/v1/contraCheques/{id}")
                 .pathParam("id", 2) /* Ñ entendi o parametroValue*/
                 .port(port)
                 .contentType(ContentType.JSON)
@@ -60,7 +49,7 @@ class ContraChequeApplicationTests {
     @Test
     void retornaContraCheque200_peloCodigo() {
         RestAssured.given()
-                .basePath("/contraCheques/{id}")
+                .basePath("/v1/contraCheques/{id}")
                 .port(port)
                 .accept(ContentType.JSON)
                 .pathParam("id", 3)
@@ -72,7 +61,7 @@ class ContraChequeApplicationTests {
     @Test
     void retornaContraCheque404_ContraChequeInexistente() {
         RestAssured.given()
-                .basePath("/contraCheques/{id}")
+                .basePath("/v1/contraCheques/{id}")
                 .port(port)
                 .accept(ContentType.JSON)
                 .pathParam("id", 10)
@@ -84,8 +73,8 @@ class ContraChequeApplicationTests {
     @Test
     void retornaContraChequeDeletada() throws IOException {
         RestAssured.given()
-                .basePath("/contraCheques/{id}")
-                .pathParam("id", 10)
+                .basePath("/v1/contraCheques/{id}")
+                .pathParam("id", 8)
                 .port(port)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)

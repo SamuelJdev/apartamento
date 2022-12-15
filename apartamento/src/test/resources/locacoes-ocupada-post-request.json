@@ -1,0 +1,21 @@
+{
+  "valorLocacao": 270,
+  "valorPago": 270,
+  "valorDebito": 0,
+  "dataEntrada": "2022-01-01",
+  "dataSaida": "2022-01-30",
+  "statusLocacao": "ABERTO",
+  "isFechar": false,
+  "valorDiaria": 0,
+  "dia": null,
+  "isDiaria": false,
+  "usuario": {
+    "id": 1
+  },
+  "inquilino": {
+    "id": 1
+  },
+  "apto": {
+    "id": 2
+  }
+}

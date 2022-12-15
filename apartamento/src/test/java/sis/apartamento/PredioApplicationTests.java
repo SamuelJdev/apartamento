@@ -2,7 +2,6 @@ package sis.apartamento;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import sis.apartamento.util.FileUtils;
+
 import java.io.IOException;
 
 @ExtendWith(SpringExtension.class)
@@ -19,22 +19,11 @@ import java.io.IOException;
 class PredioApplicationTests {
     @LocalServerPort
     private int port;
-    @Test
-    void retornaTodosPrediosPorId() {
-        RestAssured.given()
-                .basePath("/predios")
-                .port(port)
-                .accept(ContentType.JSON)
-                .when()
-                .get()
-                .then()
-                .body("numeroPredio", Matchers.hasItems("1A"))
-                .statusCode(HttpStatus.OK.value());
-    }
+
     @Test
     void deveRetornaPredioSalvo() throws IOException {
         RestAssured.given()
-                .basePath("/predios")
+                .basePath("/v1/predios")
                 .port(port)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
@@ -47,7 +36,7 @@ class PredioApplicationTests {
     @Test
     void retornaPredioAtualizado() throws IOException {
         RestAssured.given()
-                .basePath("/predios/{id}")
+                .basePath("/v1/predios/{id}")
                 .pathParam("id", 2) /* Ñ entendi o parametroValue*/
                 .port(port)
                 .contentType(ContentType.JSON)
@@ -61,7 +50,7 @@ class PredioApplicationTests {
     @Test
     void retornaPredio200_peloCodigo() {
         RestAssured.given()
-                .basePath("/predios/{id}")
+                .basePath("/v1/predios/{id}")
                 .port(port)
                 .accept(ContentType.JSON)
                 .pathParam("id", 2)
@@ -73,10 +62,10 @@ class PredioApplicationTests {
     @Test
     void retornaPredio404_PredioInexistente() {
         RestAssured.given()
-                .basePath("/predios/{id}")
+                .basePath("/v1/predios/{id}")
                 .port(port)
                 .accept(ContentType.JSON)
-                .pathParam("id", 6)
+                .pathParam("id", 100)
                 .when()
                 .get()
                 .then()
@@ -85,8 +74,8 @@ class PredioApplicationTests {
     @Test
     void retornaPredioDeletada() throws IOException {
         RestAssured.given()
-                .basePath("/predios/{id}")
-                .pathParam("id", 5)
+                .basePath("/v1/predios/{id}")
+                .pathParam("id", 6)
                 .port(port)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)

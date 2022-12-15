@@ -10,9 +10,10 @@ import sis.apartamento.model.Apto;
 import sis.apartamento.model.Locacao;
 import sis.apartamento.repository.LocacaoRepository;
 import sis.apartamento.service.interfaces.ILocacao;
-import sis.apartamento.util.DateUtils;
+
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -24,6 +25,10 @@ public class LocacaoService implements ILocacao {
     private final String DISPONIVEL = "DISPONIVEL";
     private final String FECHADO = "FECHADO";
     private final String OCUPADO = "OCUPADO";
+    private final Integer VALOR_ALUGUEL = 300;
+    private final Integer VALOR_MES = 30;
+
+
     @Override
     public List<Locacao> listarTodos() {
         return locacaoRepository.findAll();
@@ -31,8 +36,7 @@ public class LocacaoService implements ILocacao {
 
     @Override
     public Locacao buscarPorId(Long id) {
-        return locacaoRepository.findById(id)
-                .orElseThrow(()-> new LocacaoNaoEncontradoException(id));
+        return locacaoRepository.findById(id).orElseThrow(() -> new LocacaoNaoEncontradoException(id));
     }
 
     @Override
@@ -46,15 +50,22 @@ public class LocacaoService implements ILocacao {
         } else {
             throw new AptoOcupadoException(apto.getId());
         }
-        locacao.setStatusLocacao("ABERTO"); // Salvar com registro é um set, salvar locacao com statusde aberto
-        locacao.setDataEntrada(new Date(System.currentTimeMillis()));
-        locacao.setDataSaida(DateUtils.calculaDataMaisUmMes(locacao.getDataEntrada()));
 
-        /* Pegar valor locacao que é informado no Postman e subtrair com o valor Pago, onde valor debito recebe valor pago menos valor locacao. */
+        if (locacao.getIsDiaria()) {
+            locacao.setDia(ChronoUnit.DAYS.between(locacao.getDataEntrada(), locacao.getDataSaida()));
+            BigDecimal dias = new BigDecimal(locacao.getDia());
+            locacao.setValorDiaria(dias.multiply(new BigDecimal(VALOR_ALUGUEL).divide(new BigDecimal(VALOR_MES))));
+        } else {
+            locacao.setDia(ChronoUnit.DAYS.between(locacao.getDataEntrada(), locacao.getDataSaida()));
+            locacao.setValorDiaria(null);
+        }
+
+        locacao.setStatusLocacao("ABERTO");
         locacao.setValorDebito(locacao.getValorLocacao().subtract(locacao.getValorPago()));
         locacao.setIsFechar(false);
         return locacaoRepository.save(locacao);
     }
+
     @Override
     public Locacao editar(Locacao locacao, Long id) {
         verificarExistencia(id);
@@ -62,7 +73,7 @@ public class LocacaoService implements ILocacao {
 
         if (locacao.getIsFechar()) {
             if (locacao.getValorDebito().equals(new BigDecimal("0.00"))) {
-                locacao.setDataSaida(new Date(System.currentTimeMillis()));
+                locacao.setDataSaida(LocalDate.now());
                 locacao.setStatusLocacao(FECHADO);
                 Apto apto = aptoService.buscarPorId(locacao.getApto().getId());
                 apto.setStatusApartamento(DISPONIVEL);
@@ -70,6 +81,15 @@ public class LocacaoService implements ILocacao {
             } else {
                 throw new NegocioException("Debito em aberto " + locacao.getValorDebito());
             }
+        }
+
+        if (locacao.getIsDiaria()) {
+            locacao.setDia(ChronoUnit.DAYS.between(locacao.getDataEntrada(), locacao.getDataSaida()));
+            BigDecimal dias = new BigDecimal(locacao.getDia());
+            locacao.setValorDiaria(dias.multiply(new BigDecimal(VALOR_ALUGUEL).divide(new BigDecimal(VALOR_MES))));
+        } else {
+            locacao.setDia(ChronoUnit.DAYS.between(locacao.getDataEntrada(), locacao.getDataSaida()));
+            locacao.setValorDiaria(null);
         }
         locacaoRepository.save(locacao);
         return locacao;

@@ -23,8 +23,7 @@ public class AptoService implements IApto {
 
     @Override
     public Apto buscarPorId(Long id){
-        return aptoRepository.findById(id)
-                .orElseThrow(()-> new AptoNaoEncontradoException(id));
+        return aptoRepository.findById(id).orElseThrow(()-> new AptoNaoEncontradoException(id));
     }
     @Override
     public Apto inserir (Apto apto){

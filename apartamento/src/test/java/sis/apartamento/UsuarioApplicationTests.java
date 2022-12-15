@@ -2,7 +2,6 @@ package sis.apartamento;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,22 +19,11 @@ import java.io.IOException;
 class UsuarioApplicationTests {
     @LocalServerPort
     private int port;
-    @Test
-    void retornaTodosUsuariosPorId() {
-        RestAssured.given()
-                .basePath("/usuarios")
-                .port(port)
-                .accept(ContentType.JSON)
-                .when()
-                .get()
-                .then()
-                .body("nome", Matchers.hasItems("Normandes"))
-                .statusCode(HttpStatus.OK.value());
-    }
+
     @Test
     void deveRetornaUsuarios() throws IOException {
         RestAssured.given()
-                .basePath("/usuarios")
+                .basePath("/v1/usuarios")
                 .port(port)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
@@ -48,7 +36,7 @@ class UsuarioApplicationTests {
     @Test
     void retornaUsuariosAtualizado() throws IOException {
         RestAssured.given()
-                .basePath("/usuarios/{id}")
+                .basePath("/v1/usuarios/{id}")
                 .pathParam("id", 4) /* Ñ entendi o parametroValue*/
                 .port(port)
                 .contentType(ContentType.JSON)
@@ -62,7 +50,7 @@ class UsuarioApplicationTests {
     @Test
     void retornaUsuarios200_peloCodigo() {
         RestAssured.given()
-                .basePath("/usuarios/{id}")
+                .basePath("/v1/usuarios/{id}")
                 .port(port)
                 .accept(ContentType.JSON)
                 .pathParam("id", 4)
@@ -74,7 +62,7 @@ class UsuarioApplicationTests {
     @Test
     void retornaUsuarios404_UsuariosInexistente() {
         RestAssured.given()
-                .basePath("/usuarios/{id}")
+                .basePath("/v1/usuarios/{id}")
                 .port(port)
                 .accept(ContentType.JSON)
                 .pathParam("id", 5)
@@ -86,8 +74,8 @@ class UsuarioApplicationTests {
     @Test
     void retornaUsuariosDeletada() throws IOException {
         RestAssured.given()
-                .basePath("/usuarios/{id}")
-                .pathParam("id", 6)
+                .basePath("/v1/usuarios/{id}")
+                .pathParam("id", 7)
                 .port(port)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
