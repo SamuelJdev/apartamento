@@ -17,7 +17,6 @@ public class Locacao {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private BigDecimal valorLocacao;
     private BigDecimal valorPago = BigDecimal.ZERO;

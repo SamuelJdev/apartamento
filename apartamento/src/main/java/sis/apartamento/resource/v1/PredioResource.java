@@ -44,9 +44,7 @@ public class PredioResource {
         try {
             var predio = predioService.inserir(modelMapper.map(predioRequestPostDTO, Predio.class));
             return modelMapper.map(predio, PredioResponseDTO.class);
-        } catch (EntidadeRestricaoDeDadosException e) {
-            throw new NegocioException(e.getMessage());
-        } catch (EntidadeNaoEncontradaException e) {
+        } catch (EntidadeRestricaoDeDadosException | EntidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
     }

@@ -1,9 +1,9 @@
 package sis.apartamento.model;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -20,4 +20,15 @@ public class Predio {
 
     @NotNull
     private String numeroPredio;
+
+    private String cep;
+
+    private String logradouro;
+
+    private String complemento;
+
+    private String bairro;
+
+    private String uf;
+
 }

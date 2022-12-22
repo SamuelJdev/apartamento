@@ -13,4 +13,7 @@ public class PredioRequestPostDTO {
     @ApiModelProperty(value = "Nome do predio", example = "1")
     private String numeroPredio;
 
+    @ApiModelProperty(value = "Cep do predio", example = "69093118")
+    private String cep;
+
 }

@@ -45,9 +45,7 @@ public class ContraChequeResource {
         try {
             var contraCheque = contraChequeService.inserir(modelMapper.map(contraChequePostDTO, ContraCheque.class));
             return modelMapper.map(contraCheque, ContraChequeResponseDTO.class);
-        } catch (EntidadeRestricaoDeDadosException e) {
-            throw new NegocioException(e.getMessage());
-        } catch (EntidadeNaoEncontradaException e) {
+        } catch (EntidadeRestricaoDeDadosException | EntidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
     }
